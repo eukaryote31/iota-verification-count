@@ -18,10 +18,15 @@ $("#status-btn").click(() => {
 })
 
 function recursive_check(i, hashes) {
+  if (hashes.length == 0) {
+    return i
+  }
+
   iota.api.findTransactionObjects({'approvees': hashes}, (err, res) => {
     if (err) {
       $("#result-box").html(err)
       $("#loading-spinner").html('')
+      throw err
     }
 
     txhashes = [for (x of res) x.hash]
