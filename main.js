@@ -11,9 +11,6 @@ $("#status-btn").click(() => {
   iota.api.getNodeInfo((err, res) => {
     tocheck = [$("#txhash").val()]
     totalcnt = recursive_check(0, tocheck)
-    $("#loading-spinner").html('')
-    $("#result-box").html(`${totalcnt > threshold ? "More than " + totalcnt : totalcnt} transactions indirectly verify this one.`)
-    $("#status-btn").prop('disabled', false)
   })
 })
 
@@ -29,7 +26,10 @@ function recursive_check(i, hashes) {
       throw err
     }
 
-    if (res == undefined) {
+    if (res == undefined || i > threshold) {
+      $("#loading-spinner").html('')
+      $("#result-box").html(`${totalcnt > threshold ? "More than " + totalcnt : totalcnt} transactions indirectly verify this one.`)
+      $("#status-btn").prop('disabled', false)
       return i
     }
 
@@ -40,11 +40,7 @@ function recursive_check(i, hashes) {
 
     console.log(txhashes)
 
-    if (i > threshold) {
-      return i
-    } else {
-      return recursive_check(i, txhashes)
-    }
+    return recursive_check(i, txhashes)
 
   })
 }
