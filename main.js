@@ -33,6 +33,7 @@ function recursive_check(i, hashes) {
       $("#result-box").html(`${i > threshold ? "More than " + i : i} transactions indirectly verify this one. ${i > threshold ? '(We stopped because it might take a very long time to finish)' : ''}`)
       $("#status-btn").prop('disabled', false)
       running = false
+      return
     }
 
     txhashes = [for (x of res) x.hash]
