@@ -32,7 +32,7 @@ function recursive_check(i, hashes) {
     txhashes = [for (x of res) x.hash]
     i += txhashes.length
 
-    $("#result-box").html(`Found ${i == undefined ? 0 : i} transactions so far`)
+    $("#result-box").html(`Found ${i == undefined ? 0 : i} transactions that indirectly verify this one so far...`)
 
     console.log(txhashes)
 
