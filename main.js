@@ -3,8 +3,13 @@ var iota = new IOTA({
   'provider': 'https://nodes.iota.cafe:443'
 })
 
-var threshold = 5000
+var threshold = 1000
+var running = false
 $("#status-btn").click(() => {
+  if (running) {
+    return
+  }
+  running = true
   $("#status-btn").prop('disabled', true)
   $("#result-box").html('Starting search, this could take a few minutes..')
   $("#loading-spinner").html('<i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>')
@@ -15,14 +20,11 @@ $("#status-btn").click(() => {
 })
 
 function recursive_check(i, hashes) {
-  if (hashes.length == 0) {
-    return i
-  }
-
   iota.api.findTransactionObjects({'approvees': hashes}, (err, res) => {
     if (err) {
       $("#result-box").html(err)
       $("#loading-spinner").html('')
+      running = false
       throw err
     }
 
@@ -30,6 +32,7 @@ function recursive_check(i, hashes) {
       $("#loading-spinner").html('')
       $("#result-box").html(`${i > threshold ? "More than " + i : i} transactions indirectly verify this one.`)
       $("#status-btn").prop('disabled', false)
+      running = false
     }
 
     txhashes = [for (x of res) x.hash]
@@ -39,7 +42,7 @@ function recursive_check(i, hashes) {
 
     console.log(txhashes)
 
-    return recursive_check(i, txhashes)
+    recursive_check(i, txhashes)
 
   })
 }
