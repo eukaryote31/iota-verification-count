@@ -30,7 +30,7 @@ function recursive_check(i, hashes) {
 
     if (res == undefined || i > threshold) {
       $("#loading-spinner").html('')
-      $("#result-box").html(`${i > threshold ? "More than " + i : i} transactions indirectly verify this one.`)
+      $("#result-box").html(`${i > threshold ? "More than " + i : i} transactions indirectly verify this one. ${i > threshold ? '(We stopped because it might take a very long time to finish)' : ''}`)
       $("#status-btn").prop('disabled', false)
       running = false
     }
