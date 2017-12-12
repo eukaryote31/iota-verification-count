@@ -29,6 +29,10 @@ function recursive_check(i, hashes) {
       throw err
     }
 
+    if (res == undefined) {
+      return i
+    }
+
     txhashes = [for (x of res) x.hash]
     i += txhashes.length
 
