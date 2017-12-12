@@ -1,0 +1,14 @@
+{
+  "name": "iota-confirmation-progress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "eukaryote",
+  "license": "ISC",
+  "dependencies": {
+    "iota.lib.js": "^0.4.3"
+  }
+}
