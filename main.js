@@ -36,7 +36,11 @@ function recursive_check(i, hashes) {
       return
     }
 
-    txhashes = [for (x of res) x.hash]
+    txhashes = []
+    for (x of res) {
+      txhashes.push(x.hash)
+    }
+
     i += txhashes.length
 
     $("#result-box").html(`Found ${i} transactions that indirectly verify this one so far...`)
